@@ -10,29 +10,41 @@ import { tokenContext } from "../../../Context/tokenContext";
 import { baseUrl } from "../../../env/env.environment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import DropDown from "../DropDown/DropDown";
 
 
 
+export default function PostComment({ post, details }) {
 
-export default function PostComment({ post, details, commentBtn }) {
+  
   let { userToken } = useContext(tokenContext);
   let [selectImage, setImage] = useState(null);
   let inputFile = useRef();
+
+  async function deleteMyComment({ postId, commentId }) {
+    const { data } = await axios.delete(
+      `${baseUrl}/posts/${postId}/comments/${commentId}`,
+      {
+        headers: { Authorization: `Bearer ${userToken}` },
+      },
+    );
+    return data;
+  }
+
+  const { mutate: deleteComment } = useMutation({
+    mutationFn: deleteMyComment,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["profilePosts"] });
+      toast.success(data?.message);
+    },
+  });
+
 
   let { register, handleSubmit, reset } = useForm({
     defaultValues: {
       content: "",
     },
   });
-  async function createPostComment(data) {
-    const form = new FormData();
-    form.append("content", data.content);
-    if (selectImage) {
-      form.append("image", selectImage);
-    }
-    mutate(form);
-  }
-
   function getImageFile(e) {
     setImage(e.target.files[0]);
   }
@@ -47,7 +59,7 @@ export default function PostComment({ post, details, commentBtn }) {
         },
       },
     );
-    return data.data;
+    return data;
   }
   const queryClient = useQueryClient();
 
@@ -57,30 +69,51 @@ export default function PostComment({ post, details, commentBtn }) {
       queryClient.invalidateQueries({ queryKey: ["allComments"] });
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       queryClient.invalidateQueries({ queryKey: ["profilePosts"] });
+      queryClient.invalidateQueries({ queryKey: ["singlePost"] });
 
       reset();
       setImage(null);
       toast.success(data?.message);
     },
   });
+
+ function createPostComment(data) {
+    const form = new FormData();
+    form.append("content", data?.content);
+    if (selectImage) {
+      form.append("image", selectImage);
+    }
+   mutate(form);   
+  }
   return (
     <CardFooter className="flex flex-col gap-5">
       <Divider />
       {!details && post?.commentsCount > 0 ? (
         <div className="flex flex-col space-x-2 w-full">
-          <div className="flex flex-row gap-3 items-center">
-            <img
-              src={post?.topComment?.commentCreator?.photo}
-              alt={post?.topComment?.commentCreator?.name}
-              className="w-6 h-6 rounded-full"
+          <div className="flex items-center justify-between">
+            <div className="flex flex-row gap-3 justify-between items-center">
+              <img
+                src={post?.topComment?.commentCreator?.photo}
+                alt={post?.topComment?.commentCreator?.name}
+                className="w-6 h-6 rounded-full"
+              />
+              <p className="text-gray-800 font-semibold">
+                {post?.topComment?.commentCreator?.name}
+              </p>
+            </div>
+            <DropDown
+              userId={post?.topComment?.commentCreator?._id}
+              onDelete={() =>
+                deleteComment({
+                  postId: post._id,
+                  commentId: post.topComment._id,
+                })
+              }
             />
-            <p className="text-gray-800 font-semibold">
-              {post?.topComment?.commentCreator?.name}
-            </p>
           </div>
           <div>
             <p className="text-gray-500 text-sm px-9">
-              {post?.topComment.content}
+              {post?.topComment?.content}
             </p>
             {post?.topComment?.image ? (
               <Image
@@ -121,7 +154,6 @@ export default function PostComment({ post, details, commentBtn }) {
                 </button>
               </div>
             }
-            ref={commentBtn}
             type="text"
             placeholder="Write your comment here"
           />

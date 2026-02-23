@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 
-export default function InteractiveBtns({ post,commentBtn }) {
+export default function InteractiveBtns({ post }) {
   let { userToken } = useContext(tokenContext);
   let [isLiked, setLiked] = useState(null);
   async function toggleLikes() {
@@ -51,11 +51,11 @@ export default function InteractiveBtns({ post,commentBtn }) {
           }}
           className="flex items-center w-full"
         >
-          {isLiked ? <BiSolidLike /> : <BiLike />}
+          {isLiked ? <BiSolidLike  className="text-sky-600"/> : <BiLike />}
           Like
         </Button>
         <Button
-          onClick={() => commentBtn.current?.focus()}
+      
           className="flex items-center w-full"
         >
           <FaRegComment /> Comment

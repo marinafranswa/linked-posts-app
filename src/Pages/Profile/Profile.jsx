@@ -107,8 +107,7 @@ export default function Profile() {
               </div>
             </div>
             <div className="flex flex-col w-full 2xl:w-2/3">
-              {/* profile posts */}
-<CreatePosts/>
+                <CreatePosts/>
               {data.map((post) => {
                 return <PostCard post={post} key={post._id} />;
               })}

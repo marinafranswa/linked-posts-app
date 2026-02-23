@@ -4,7 +4,6 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Link,
   Image,
   Textarea,
   Button,
@@ -30,13 +29,12 @@ export default function CreatePosts() {
     },
   });
 
-  function submitForm(data) {
-     
+  function submitForm(data) {  
       const fd = new FormData()
       fd.append("body", data?.body)
  if (imageSelected) {
    fd.append("image", imageSelected);
- }      mutate(fd)
+    } mutate(fd)
   }
 
   function handleImage(e) {
@@ -49,13 +47,14 @@ export default function CreatePosts() {
             Authorization: `Bearer ${userToken}`,
           },
      });
-      return data.data;
+      return data;
     }
     let queryClient = useQueryClient()
     let { mutate } = useMutation({
         mutationFn: sendPost,
         onSuccess: (data) => {
             queryClient.invalidateQueries({ queryKey: ["posts"] })
+            queryClient.invalidateQueries({ queryKey: ["profilePosts"] });
             reset()
             setSelectedImage(null)
             toast.success(data.message)
