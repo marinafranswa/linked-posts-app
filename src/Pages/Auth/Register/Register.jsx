@@ -9,8 +9,7 @@ import { FaUser, FaEnvelope, FaLock, FaCalendar } from "react-icons/fa";
 
 
 export default function Register() {
-  // let [isError, setError] = useState(false);
-  // let [isLoading, setLoading] = useState(false);
+
   let navigate = useNavigate();
   const {
     register,
@@ -30,17 +29,14 @@ export default function Register() {
     mode: "onBlur",
   });
   async function onSubmitForm(data) {
-    // setError(false);
-    // setLoading(false);
+   
     try {
       let response = await sendRegisterData(data);
       console.log(response);
-      // setLoading(true);
       toast.success("Success! please sign in");
       navigate("/auth/login");
     } catch (error) {
       console.log(error);
-      //  setError(true);
       toast.error("Enter valid data");
     }
   }
