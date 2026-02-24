@@ -1,5 +1,5 @@
 
-export default function postNumbers({post}) {
+export default function PostNumbers({post}) {
   return (
     <>
     

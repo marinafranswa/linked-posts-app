@@ -3,8 +3,8 @@ import PostComment from "../PostComment/PostComment";
 import PostHeader from "../PostHeader/PostHeader";
 import PostBody from "../PostBody/PostBody";
 import InteractiveBtns from "../InteractiveBtns/InteractiveBtns";
-import PostNumbers from "../../postNumbers/postNumbers";
 import { useState } from "react";
+import PostNumbers from "../../PostNumbers/PostNumbers"
 
 export default function PostCard({ post, isDetails }) {
     const [isEdit, setIsEdit] = useState(false);
