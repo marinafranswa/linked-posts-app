@@ -10,7 +10,6 @@ import { useContext } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-
 export default function InteractiveBtns({ post }) {
   let { userToken } = useContext(tokenContext);
   let [isLiked, setLiked] = useState(null);
@@ -28,18 +27,19 @@ export default function InteractiveBtns({ post }) {
   }
 
   let queryClient = useQueryClient();
-  let { mutate, isPending,reset } = useMutation({
+  let { mutate, isPending, reset } = useMutation({
     mutationFn: toggleLikes,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       queryClient.invalidateQueries({ queryKey: ["profilePosts"] });
-        setLiked(data?.liked);
-        reset()
+      queryClient.invalidateQueries({ queryKey: ["allComments"] });
+      queryClient.invalidateQueries({ queryKey: ["singlePost"] });
+      setLiked(data?.liked);
+      reset();
     },
   });
   function likePost() {
     mutate();
- 
   }
   return (
     <>
@@ -51,13 +51,10 @@ export default function InteractiveBtns({ post }) {
           }}
           className="flex items-center w-full"
         >
-          {isLiked ? <BiSolidLike  className="text-sky-600"/> : <BiLike />}
+          {isLiked ? <BiSolidLike className="text-sky-600" /> : <BiLike />}
           Like
         </Button>
-        <Button
-      
-          className="flex items-center w-full"
-        >
+        <Button className="flex items-center w-full">
           <FaRegComment /> Comment
         </Button>
         <Button className="flex items-center w-full">

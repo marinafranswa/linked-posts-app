@@ -54,12 +54,15 @@ navigate("auth/login")
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
+            <DropdownItem key="profileData" className="h-14 gap-2">
               <p className="font-semibold">Signed in as: {userData?.name}</p>
               <p className="font-semibold">{userData?.email}</p>
             </DropdownItem>
+            <DropdownItem key="profilePage">
+              <Link to={`/profile/` + userData?._id}>Profile</Link>
+            </DropdownItem>
             <DropdownItem key="settings">
-              <Link to={`/profile/`+userData?._id}>Profile</Link>
+              <Link to={`/settings`}>Change Password</Link>
             </DropdownItem>
 
             <DropdownItem

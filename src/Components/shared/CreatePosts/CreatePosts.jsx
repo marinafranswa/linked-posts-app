@@ -86,9 +86,23 @@ export default function CreatePosts() {
           </CardBody>
           <Divider />
           <CardFooter>
-            <div className="flex justify-end w-full items-center gap-3">
-              <FaRegFileImage size={20} onClick={()=>{imageFile.current.click()}} />
-              <input ref={imageFile} type="file" hidden onChange={handleImage} />
+            <div className="flex justify-between w-full items-center gap-3 px-2">
+              <Button className="bg-sky-50 text-blue-500">
+                
+                <FaRegFileImage
+                  size={20}
+                  onClick={() => {
+                    imageFile.current.click();
+                  }}
+                />
+                <input
+                  ref={imageFile}
+                  type="file"
+                  hidden
+                  onChange={handleImage}
+                />
+                choose file
+              </Button>
               <Button className="cursor-pointer" color="primary" type="submit">
                 Create Post
               </Button>

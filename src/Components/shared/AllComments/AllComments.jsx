@@ -31,7 +31,7 @@ export default function AllComments({ post }) {
     <>
       {data?.comments.map((comment) => {
         return (
-         <CommentBody comment={comment} postId={post._id}/>
+         <CommentBody key={comment?._id} comment={comment} postId={post._id}/>
         );
       })}
     </>

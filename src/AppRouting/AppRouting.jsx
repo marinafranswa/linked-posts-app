@@ -9,6 +9,7 @@ import Login from "../Pages/Auth/Login/Login";
 import MainProtectedRoute from "../Components/ProtectedRoutes/MainProtectedRoute/MainProtectedRoute";
 import AuthProtectedRoute from "../Components/ProtectedRoutes/AuthProtectedRoute/AuthProtectedRoute";
 import PostDetails from "../Pages/PostDetails/PostDetails";
+import ChangePassword from "../Components/ChangePassword/ChangePassword";
 
 export const routes = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const routes = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/profile/:userId", element: <Profile /> },
       { path: `/postDetails/:id`, element: <PostDetails /> },
+      { path: "/settings", element: <ChangePassword /> },
       { path: "*", element: <NotFound /> },
     ],
   },
