@@ -11,7 +11,7 @@ export default function PostCard({ post, isDetails }) {
 
   return (
     <>
-      <Card className="w-150 mx-auto my-8">
+      <Card className="w-70 md:w-150 mx-auto my-8">
         <PostHeader post={post} onEdit={() => setIsEdit(true)} />
         <Divider />
         <PostBody

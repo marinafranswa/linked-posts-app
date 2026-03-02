@@ -57,10 +57,7 @@ export default function InteractiveBtns({ post }) {
         <Button className="flex items-center w-full">
           <FaRegComment /> Comment
         </Button>
-        <Button className="flex items-center w-full">
-          <FiShare2 />
-          Share
-        </Button>
+
       </div>
     </>
   );

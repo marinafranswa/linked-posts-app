@@ -7,8 +7,16 @@ import { useParams } from "react-router-dom";
 import { baseUrl } from "../../env/env.environment";
 import PostCard from "../../Components/shared/PostCard/PostCard";
 import CreatePosts from "../../Components/shared/CreatePosts/CreatePosts";
+import { Card } from "@heroui/react";
+import { FaAt, FaUser } from "react-icons/fa6";
+import { FaBirthdayCake } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { PiUserListFill } from "react-icons/pi";
+import FollowersSuggestions from "../../Components/FollowersSuggestions/FollowersSuggestions";
+
 export default function Profile() {
   let { userData, userToken } = useContext(tokenContext);
+  
   let { userId } = useParams();
   async function getUserPosts() {
     let { data } = await axios.get(
@@ -36,14 +44,9 @@ export default function Profile() {
   return (
     <>
       {userData ? (
-        <div className="h-full bg-gray-200 p-8">
-          <div className="bg-white rounded-lg shadow-xl pb-8">
-            <div className="w-full h-62.5">
-              <img
-                src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
-                className="w-full h-full rounded-tl-lg rounded-tr-lg"
-              />
-            </div>
+        <div className="h-full bg-gray-200">
+          <div className="bg-white pb-8">
+            <div className="w-full h-40"></div>
             <div className="flex flex-col items-center -mt-20">
               <img
                 src={userData?.photo}
@@ -51,66 +54,102 @@ export default function Profile() {
               />
               <div className="flex items-center space-x-2 mt-2">
                 <p className="text-2xl">{userData?.name}</p>
-                <span className="bg-blue-500 rounded-full p-1" title="Verified">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-gray-100 h-2.5 w-2.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={4}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </span>
               </div>
-              <p className="text-gray-700">Software Engineer at Tailwind CSS</p>
-              <p className="text-sm text-gray-500">New York, USA</p>
+              <p className="text-gray-700">{userData?.email}</p>
+              <div className="flex gap-5">
+                <p className="text-sm text-gray-500">
+                  {userData?.followersCount} Followers
+                </p>
+                <p className="text-sm text-gray-500">
+                  {userData?.followingCount} Followings
+                </p>
+              </div>
             </div>
           </div>
-          <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-            <div className="w-full flex flex-col 2xl:w-1/3">
-              <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-                <h4 className="text-xl text-gray-900 font-bold">
+          <div className="my-4 flex flex-col px-4 md:px-8 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+            <div className="w-full h-1/3 2xl:w-1/3 flex flex-col xl:flex-col md:flex-row gap-6">
+              <Card className="flex-1 p-8 mb-12">
+                <h4 className="text-xl text-gray-900 font-bold mb-5">
                   Personal Info
                 </h4>
-                <ul className="mt-2 text-gray-700">
-                  <li className="flex border-y py-2">
-                    <span className="font-bold w-24">Full name:</span>
-                    <span className="text-gray-700">{userData?.name}</span>
-                  </li>
-                  <li className="flex border-b py-2">
-                    <span className="font-bold w-24">Birthday:</span>
-                    <span className="text-gray-700">
-                      {userData?.dateOfBirth.split("T")[0]}
-                    </span>
-                  </li>
-                  <li className="flex border-b py-2">
-                    <span className="font-bold w-24">Joined:</span>
-                    <span className="text-gray-700">
-                      {userData?.createdAt.split("T")[0]}
-                    </span>
-                  </li>
-                  <li className="flex border-b py-2">
-                    <span className="font-bold w-24">Email:</span>
-                    <span className="text-gray-700">{userData?.email}</span>
-                  </li>
-                  <li className="flex py-2">
-                    <span className="font-bold w-24">Gender:</span>
-                    <span className="text-gray-700">{userData?.gender}</span>
-                  </li>
-                </ul>
+                <div className="group relative flex items-center gap-x-4 rounded-lg px-3 py-2 text-sm leading-6 hover:bg-indigo-50">
+                  <div className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
+                    <FaUser />
+                  </div>
+                  <div className="flex-auto">
+                    <div className="block font-semibold text-gray-900">
+                      <span className="font-bold w-24 me-2">Full name:</span>
+                      <span className="text-gray-700">{userData?.name}</span>
+
+                      <span className="absolute inset-0" />
+                    </div>
+                  </div>
+                </div>
+                <div className="group relative flex items-center gap-x-4 rounded-lg px-3 py-2 text-sm leading-6 hover:bg-indigo-50">
+                  <div className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
+                    <FaBirthdayCake />
+                  </div>
+                  <div className="flex-auto">
+                    <div className="block font-semibold text-gray-900">
+                      <span className="font-bold w-24 me-2">Birthday:</span>
+                      <span className="text-gray-700">
+                        {userData?.dateOfBirth.split("T")[0]}
+                      </span>
+                      <span className="absolute inset-0" />
+                    </div>
+                  </div>
+                </div>
+                <div className="group relative flex items-center gap-x-4 rounded-lg px-3 py-2 text-sm leading-6 hover:bg-indigo-50">
+                  <div className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
+                    <FaAt />
+                  </div>
+                  <div className="flex-auto">
+                    <div className="block font-semibold text-gray-900">
+                      <span className="font-bold w-24 me-2">Joined:</span>
+                      <span className="text-gray-700">
+                        {userData?.createdAt.split("T")[0]}
+                      </span>
+                      <span className="absolute inset-0" />
+                    </div>
+                  </div>
+                </div>
+                <div className="group relative flex items-center gap-x-4 rounded-lg px-3 py-2 text-sm leading-6 hover:bg-indigo-50">
+                  <div className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
+                    <MdEmail />
+                  </div>
+                  <div className="flex-auto">
+                    <div className="block font-semibold text-gray-900">
+                      <span className="font-bold w-24 me-2">Email:</span>
+                      <span className="text-gray-700">{userData?.email}</span>
+                      <span className="absolute inset-0" />
+                    </div>
+                  </div>
+                </div>
+                <div className="group relative flex items-center gap-x-4 rounded-lg px-3 py-2 text-sm leading-6 hover:bg-indigo-50">
+                  <div className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
+                    <PiUserListFill />
+                  </div>
+                  <div className="flex-auto">
+                    <div className="block font-semibold text-gray-900">
+                      <span className="font-bold w-24 me-2">Gender:</span>
+                      <span className="text-gray-700">{userData?.gender}</span>
+                      <span className="absolute inset-0" />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+              <div className="hidden md:block">
+                <FollowersSuggestions />
               </div>
             </div>
             <div className="flex flex-col w-full 2xl:w-2/3">
-                <CreatePosts/>
-              {data.map((post) => {
-                return <PostCard post={post} key={post._id} />;
-              })}
+              <CreatePosts />
+
+              {data && data.length > 0 ? (
+                data.map((post) => <PostCard post={post} key={post?._id} />)
+              ) : (
+                <p className="text-center my-5 ">no posts yet</p>
+              )}
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import { baseUrl } from "../../env/env.environment";
 
 export default function Posts() {
   const { userToken } = useContext(tokenContext);
-
   async function getAllPosts() {
     const { data } = await axios.get(
       `${baseUrl}/posts`,

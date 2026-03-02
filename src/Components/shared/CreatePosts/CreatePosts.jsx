@@ -62,7 +62,7 @@ export default function CreatePosts() {
     })
   return (
     <>
-      <Card className="w-150  mx-auto">
+      <Card className="md:w-150 mx-auto">
         <CardHeader className="flex gap-3">
           <Image
             alt=""

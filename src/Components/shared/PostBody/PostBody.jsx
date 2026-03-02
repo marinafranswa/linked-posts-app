@@ -15,8 +15,6 @@ export default function PostBody({ post, isEdit, onCloseEdit }) {
   let queryClient = useQueryClient();
   let [imageSelected, setSelectedImage] = useState(null);
 
-
-
   
   let { register, handleSubmit } = useForm({
     defaultValues: {

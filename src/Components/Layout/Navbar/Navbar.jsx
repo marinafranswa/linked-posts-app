@@ -62,7 +62,7 @@ navigate("auth/login")
               <Link to={`/profile/` + userData?._id}>Profile</Link>
             </DropdownItem>
             <DropdownItem key="settings">
-              <Link to={`/settings`}>Change Password</Link>
+              <Link to={`/settings/changePassword`}>Settings</Link>
             </DropdownItem>
 
             <DropdownItem
