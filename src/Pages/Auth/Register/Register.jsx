@@ -32,7 +32,7 @@ export default function Register() {
    
     try {
       let response = await sendRegisterData(data);
-      console.log(response);
+      // console.log(response);
       toast.success("Success! please sign in");
       navigate("/auth/login");
     } catch (error) {

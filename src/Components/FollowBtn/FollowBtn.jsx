@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@heroui/react';
 
 export default function FollowBtn({ userId }) {
-    console.log(userId);
+
     
      let { userToken } = useContext(tokenContext);
      let [isFollowed, setFollow] = useState(null);

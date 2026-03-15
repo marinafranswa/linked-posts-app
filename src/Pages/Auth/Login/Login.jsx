@@ -34,7 +34,7 @@ let navigate = useNavigate()
 
     try {
       let response = await sendLoginData(data);
-      console.log(response);
+
 
       setToken(response.token);
       localStorage.setItem("token", response.token)
