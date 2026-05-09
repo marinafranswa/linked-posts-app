@@ -74,7 +74,7 @@ let navigate = useNavigate()
         <p className="text-red-600 text-small">{errors.password.message}</p>
       ) : null}
       <Button
-        className="font-medium"
+
         isLoading={isSubmitting}
         type="submit"
         className="w-full rounded-xl py-3 text-base font-extrabold text-white transition disabled:opacity-60 bg-[#00298d] hover:bg-[#001f6b]"
