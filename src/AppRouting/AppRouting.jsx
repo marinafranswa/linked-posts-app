@@ -45,6 +45,7 @@ export const routes = createBrowserRouter([
       </AuthProtectedRoute>
     ),
     children: [
+      { index: true, element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "login", element: <Login /> },
     ],
