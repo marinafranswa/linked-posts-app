@@ -2,7 +2,7 @@ import FollowersSuggestions from "../../Components/FollowersSuggestions/Follower
 import Posts from "../../Components/Posts/Posts";
 import CreatePosts from "../../Components/shared/CreatePosts/CreatePosts";
 import SideMenu from "../../Components/SideMenu/SideMenu";
-import SuggestionMenu from "../../Components/suggestionMenu/suggestionMenu";
+import SuggestionMenu from "../../Components/suggestionMenu/SuggestionMenu";
 
 export default function Home() {
   return (
